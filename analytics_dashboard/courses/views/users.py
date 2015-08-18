@@ -1,17 +1,17 @@
 from __future__ import division
 from django.http import Http404
+from django.utils.translation import ugettext_lazy as _
 import math
 
-from .base import UsersView
+from courses.views import CourseTemplateWithNavView
 
 
-class UserListView(UsersView):
-    template_name = 'users/list.html'
+class UserListView(CourseTemplateWithNavView):
+    template_name = 'courses/user_list.html'
+    page_title = _('Users')
 
     def get_context_data(self, **kwargs):
         context = super(UserListView, self).get_context_data(**kwargs)
-
-        # TODO: Check permissions of self.request.user
 
         users_per_page = 100
         try:
@@ -21,7 +21,7 @@ class UserListView(UsersView):
         except ValueError:
             raise Http404
 
-        response = self.client.user_list().list_users(page=page, limit=users_per_page)
+        response = self.client.courses(self.course_id).list_users(page=page, limit=users_per_page)
         users_count = response['count']
         context['count'] = users_count
         context['page'] = page

@@ -2,11 +2,10 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load dashboard_extras %}
-{% load firstof from future %}
 
-{% block view-name %}view-course-list{% endblock view-name %}
+{% block view-name %}view-user-profile{% endblock view-name %}
 
-{% block title %}{{ profile.name }} {{ block.super }}{% endblock title %}
+{% block title %}{% trans "User Profile" %} - {{ profile.name }} {{block.super}}{% endblock title %}
 
 {% block header-text %}
   <h3>
@@ -22,14 +21,14 @@
     <div class="container ">
       <ul id="mode-selectors" class="nav navbar-nav navbar-right">
         <li class="has-tooltip" data-toggle="tooltip" title="Click to switch to course mode">
-          <a href="{% url 'courses:home' course_id=course_id %}">
+          <a href="{% url 'landing' %}">
             <span class="link-label">
               <i class="ico fa fa-users" aria-hidden="true"></i>
             </span>
           </a>
         </li>
-        <li class="active nav-section has-tooltip" data-toggle="tooltip" title="You're in user mode. Click to go back to the list of all students enrolled in this course.">
-          <a href="{% url 'courses:users:list' course_id=course_id %}">
+        <li class="active nav-section has-tooltip" data-toggle="tooltip" title="You're in user mode">
+          <a href="#">
             <span class="link-label">
               <i class="ico fa fa-user" aria-hidden="true"></i>
             </span>

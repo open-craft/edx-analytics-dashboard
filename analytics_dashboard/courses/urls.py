@@ -3,7 +3,7 @@
 from django.conf.urls import url, patterns, include
 
 from courses import views
-from courses.views import enrollment, engagement, performance, csv
+from courses.views import enrollment, engagement, performance, csv, users
 
 CONTENT_ID_PATTERN = r'(?P<content_id>(?:i4x://?[^/]+/[^/]+/[^/]+/[^@]+(?:@[^/]+)?)|(?:[^/]+))'
 COURSE_ID_PATTERN = r'(?P<course_id>[^/+]+[/+][^/+]+[/+][^/]+)'
@@ -101,6 +101,11 @@ CSV_URLS = patterns(
         name='performance_answer_distribution'),
 )
 
+USERS_URLS = patterns(
+    '',
+    url('^$', users.UserListView.as_view(), name='list'),
+)
+
 COURSE_URLS = patterns(
     '',
     # Course homepage. This should be the entry point for other applications linking to the course.
@@ -109,7 +114,7 @@ COURSE_URLS = patterns(
     url(r'^engagement/', include(ENGAGEMENT_URLS, namespace='engagement')),
     url(r'^performance/', include(PERFORMANCE_URLS, namespace='performance')),
     url(r'^csv/', include(CSV_URLS, namespace='csv')),
-    url(r'^users/', include('users.urls', namespace='users')),
+    url(r'^users/', include(USERS_URLS, namespace='users')),
 )
 
 urlpatterns = patterns(

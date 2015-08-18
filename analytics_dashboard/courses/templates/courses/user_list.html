@@ -1,12 +1,9 @@
-{% extends "users/base.html" %}
+{% extends "courses/base-course.html" %}
 {% load i18n %}
 {% load staticfiles %}
 {% load dashboard_extras %}
-{% load firstof from future %}
 
-{% block view-name %}view-course-list{% endblock view-name %}
-
-{% block title %}{% trans "Users" %} {{ block.super }}{% endblock title %}
+{% block view-name %}view-user-list{% endblock view-name %}
 
 {% block header-text %}
   <h3>
@@ -54,7 +51,7 @@
       <div class="user-list paginated">
         {% for user in users %}
           <div class="user">
-            <a href="{% url 'courses:users:profile' course_id=course_id user_id=user.id %}">
+            <a href="{% url 'users:profile' username=user.username %}">
               <span class="main-info">{{user.username}}</span>
             </a>
             <div class="sub-info">{{user.name}}</div>
